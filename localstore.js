@@ -1,41 +1,42 @@
-!function() {
+! function() {
     "use strict";
     var e = function() {
         return function() {
             try {
-                if (window.top.location.href) return !0;
+                if (window.top.location.href) return !0
             } catch (e) {
-                return !1;
+                return !1
             }
-        }() ? window.top : window.self;
+        }() ? window.top : window.self
     };
-    !function() {
+    ! function() {
         if (!e().navigator.userAgent.match(/(MSIE|Trident)/)) {
             try {
-                !function() {
+                ! function() {
                     var t = e();
-                    // Definindo o estado como já carregado
-                    t.ADAGIO = t.ADAGIO || {};
-                    t.ADAGIO.cleanAdIsLoading = !1; // O script já não está sendo carregado
-                    t.ADAGIO.cleanAdIsLoaded = !0;  // O script já está carregado
-                    console.log("Anúncio já foi carregado.");
+                    if (t.ADAGIO = t.ADAGIO || {}, t.ADAGIO.cleanAdIsLoading = t.ADAGIO.cleanAdIsLoading || !1, t.ADAGIO.cleanAdIsLoaded = t.ADAGIO.cleanAdIsLoaded || !1, !t.ADAGIO.cleanAdIsLoading && !t.ADAGIO.cleanAdIsLoaded) {
+                        t.ADAGIO.cleanAdIsLoading = !0;
+                        var n = t.document.createElement("script");
+                        n.src = "https://cadmus.script.ac/dahhc4ozyvjm6/script.js", n.async = !0, n.setAttribute("data-client-key", "7d1ed67e-10ef-4c22-b165-710c6bfa1345"), n.setAttribute("data-api-integration-mode", "prebid");
+                        var a = function e() {
+                            n.removeEventListener("load", e), t.document.head.contains(n) || (t.ADAGIO.cleanAdIsLoaded = !0, t.ADAGIO.cleanAdIsLoading = !1)
+                        };
+                        n.addEventListener("load", a), setTimeout((function() {
+                            t.ADAGIO.cleanAdIsLoaded || (n.removeEventListener("load", a), t.document.head.removeChild(n)), t.ADAGIO.cleanAdIsLoading = !1
+                        }), 1e3), t.document.head.appendChild(n)
+                    }
                 }()
             } catch (e) {
-                console.error(e);
+                console.error(e)
             }
-            // Armazenando adagioScript no localStorage para simular que já foi executado
-            var scriptContent = "console.log('adagioScript já executado');"; // Simulação do conteúdo
-            var n = e();
-            n.localStorage.setItem("adagioScript", scriptContent); // Salva o script no localStorage
-
-            // Checagem e execução simulada
-            if (!n.localStorage.getItem("adagioScript")) {
-                n.ADAGIO.late = !0;
-                console.log("Executando adagioScript...");
-                Function(scriptContent)();
-            } else {
-                console.log("adagioScript já está no localStorage, não precisa executar novamente.");
-            }
+            fetch("adagio.js").then((function(e) {
+                return e.text()
+            })).then((function(t) {
+                var n = e();
+                n.ADAGIO = n.ADAGIO || {}, n.localStorage.getItem("adagioScript") || (n.ADAGIO.late = !0, Function(t)()), n.localStorage.setItem("adagioScript", t)
+            })).catch((function(e) {
+                console.log(e)
+            }))
         }
     }()
 }();
